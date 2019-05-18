@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RipoffRentalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Car Type Index" Type="int" Nullable="false" />
+          <Property Name="Mileage" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" />
+          <Property Name="Fit For Rental" Type="bit" Nullable="false" />
+          <Property Name="Available" Type="bit" Nullable="false" />
+          <Property Name="Plate Number" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="Branch" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarTypes">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" Nullable="false" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Model Year" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Daily Cost" Type="int" Nullable="false" />
+          <Property Name="Daily Late Cost" Type="int" Nullable="false" />
+          <Property Name="Transmission" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rentals">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Start Date" Type="datetime" Nullable="false" />
+          <Property Name="End Date" Type="datetime" Nullable="false" />
+          <Property Name="Return Date" Type="datetime" />
+          <Property Name="User Index" Type="int" Nullable="false" />
+          <Property Name="Car Index" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID Number" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="User Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Date Of Birth" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="binary" MaxLength="6000" />
+          <Property Name="Permissions" Type="nvarchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cars_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_CarTypes">
+          <End Role="CarTypes" Type="Self.CarTypes" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarTypes">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Car Type Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rentals_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="Car Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rentals_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Rentals" Type="Self.Rentals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="User Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RipoffRentalsModelStoreContainer">
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarTypes" EntityType="Self.CarTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rentals" EntityType="Self.Rentals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cars_Branches" Association="Self.FK_Cars_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_CarTypes" Association="Self.FK_Cars_CarTypes">
+            <End Role="CarTypes" EntitySet="CarTypes" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rentals_Cars" Association="Self.FK_Rentals_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rentals_Users" Association="Self.FK_Rentals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RipoffRentalsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Branches" FromRole="Branches" ToRole="Cars" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Car_Type_Index" Type="Int32" Nullable="false" />
+          <Property Name="Mileage" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fit_For_Rental" Type="Boolean" Nullable="false" />
+          <Property Name="Available" Type="Boolean" Nullable="false" />
+          <Property Name="Plate_Number" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Branch1" Relationship="Self.FK_Cars_Branches" FromRole="Cars" ToRole="Branches" />
+          <NavigationProperty Name="CarType" Relationship="Self.FK_Cars_CarTypes" FromRole="Cars" ToRole="CarTypes" />
+          <NavigationProperty Name="Rentals" Relationship="Self.FK_Rentals_Cars" FromRole="Cars" ToRole="Rentals" />
+        </EntityType>
+        <EntityType Name="CarType">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model_Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Daily_Cost" Type="Int32" Nullable="false" />
+          <Property Name="Daily_Late_Cost" Type="Int32" Nullable="false" />
+          <Property Name="Transmission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_CarTypes" FromRole="CarTypes" ToRole="Cars" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Return_Date" Type="DateTime" Precision="3" />
+          <Property Name="User_Index" Type="Int32" Nullable="false" />
+          <Property Name="Car_Index" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Rentals_Cars" FromRole="Rentals" ToRole="Cars" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rentals_Users" FromRole="Rentals" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Number" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date_Of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="6000" FixedLength="true" />
+          <Property Name="Permissions" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Rentals" Relationship="Self.FK_Rentals_Users" FromRole="Users" ToRole="Rentals" />
+        </EntityType>
+        <Association Name="FK_Cars_Branches">
+          <End Role="Branches" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cars_CarTypes">
+          <End Role="CarTypes" Type="Self.CarType" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarTypes">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="Car_Type_Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rentals_Cars">
+          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+          <End Role="Rentals" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="Car_Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rentals_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Rentals" Type="Self.Rental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="Rentals">
+              <PropertyRef Name="User_Index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RipoffRentalsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="CarTypes" EntityType="Self.CarType" />
+          <EntitySet Name="Rentals" EntityType="Self.Rental" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Cars_Branches" Association="Self.FK_Cars_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cars_CarTypes" Association="Self.FK_Cars_CarTypes">
+            <End Role="CarTypes" EntitySet="CarTypes" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rentals_Cars" Association="Self.FK_Rentals_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rentals_Users" Association="Self.FK_Rentals_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rentals" EntitySet="Rentals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RipoffRentalsModelStoreContainer" CdmEntityContainer="RipoffRentalsEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="RipoffRentalsModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="RipoffRentalsModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Car_Type_Index" ColumnName="Car Type Index" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Fit_For_Rental" ColumnName="Fit For Rental" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+                <ScalarProperty Name="Plate_Number" ColumnName="Plate Number" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarTypes">
+            <EntityTypeMapping TypeName="RipoffRentalsModel.CarType">
+              <MappingFragment StoreEntitySet="CarTypes">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Model_Year" ColumnName="Model Year" />
+                <ScalarProperty Name="Daily_Cost" ColumnName="Daily Cost" />
+                <ScalarProperty Name="Daily_Late_Cost" ColumnName="Daily Late Cost" />
+                <ScalarProperty Name="Transmission" ColumnName="Transmission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rentals">
+            <EntityTypeMapping TypeName="RipoffRentalsModel.Rental">
+              <MappingFragment StoreEntitySet="Rentals">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End Date" />
+                <ScalarProperty Name="Return_Date" ColumnName="Return Date" />
+                <ScalarProperty Name="User_Index" ColumnName="User Index" />
+                <ScalarProperty Name="Car_Index" ColumnName="Car Index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RipoffRentalsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="ID_Number" ColumnName="ID Number" />
+                <ScalarProperty Name="User_Name" ColumnName="User Name" />
+                <ScalarProperty Name="Date_Of_Birth" ColumnName="Date Of Birth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Permissions" ColumnName="Permissions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

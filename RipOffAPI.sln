@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipOffAPI", "RipOffAPI\RipOffAPI.csproj", "{97A634D7-302F-45C0-90D5-8F01ADF386C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97A634D7-302F-45C0-90D5-8F01ADF386C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A634D7-302F-45C0-90D5-8F01ADF386C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A634D7-302F-45C0-90D5-8F01ADF386C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A634D7-302F-45C0-90D5-8F01ADF386C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {007FD479-F8A7-4D12-983E-FB98C4BB0AED}
+	EndGlobalSection
+EndGlobal
