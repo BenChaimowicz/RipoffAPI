@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RipoffRentalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RipoffRentalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Branches">
           <Key>
             <PropertyRef Name="Index" />
@@ -64,6 +64,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Image" Type="binary" MaxLength="6000" />
           <Property Name="Permissions" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cars_Branches">
           <End Role="Branches" Type="Self.Branches" Multiplicity="1" />
@@ -136,8 +137,7 @@
             <End Role="Rentals" EntitySet="Rentals" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RipoffRentalsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -208,6 +208,7 @@
           <Property Name="Image" Type="Binary" MaxLength="6000" FixedLength="true" />
           <Property Name="Permissions" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Rentals" Relationship="Self.FK_Rentals_Users" FromRole="Users" ToRole="Rentals" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Cars_Branches">
           <End Role="Branches" Type="Self.Branch" Multiplicity="1" />
@@ -339,6 +340,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="RipoffRentalsModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="uid" ColumnName="uid" />
                 <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
                 <ScalarProperty Name="ID_Number" ColumnName="ID Number" />

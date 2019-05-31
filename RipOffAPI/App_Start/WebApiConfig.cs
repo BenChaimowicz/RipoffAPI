@@ -14,6 +14,8 @@ namespace RipOffAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            config.MessageHandlers.Add(new Managers.TokenValidationHandler());
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

@@ -13,6 +13,7 @@ using RipOffAPI.Models;
 
 namespace RipOffAPI.Controllers
 {
+    [Authorize]
     public class BranchesController : ApiController
     {
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
