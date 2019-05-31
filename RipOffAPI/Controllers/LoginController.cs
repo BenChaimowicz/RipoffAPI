@@ -25,8 +25,19 @@ namespace RipOffAPI.Controllers
             bool isUsernamePasswordValid = false;
 
             if (login != null)
-                isUsernamePasswordValid = loginrequest.Password == "admin" ? true : false;
-            // if credentials are valid
+            {
+                using (RipoffRentalsEntities entities = new RipoffRentalsEntities())
+                {
+                    var user = entities.Users.FirstOrDefault(u => u.Email == loginrequest.Username);
+                    if (user == null)
+                    {
+                        loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
+                        response = ResponseMessage(loginResponse.responseMsg);
+                        return response;
+                    }
+                    isUsernamePasswordValid = loginrequest.Password == user.Password  ? true : false;
+                }
+            }
             if (isUsernamePasswordValid)
             {
                 string token = createToken(loginrequest.Username);
@@ -45,7 +56,6 @@ namespace RipOffAPI.Controllers
             DateTime issuedAt = DateTime.UtcNow;
             DateTime expires = DateTime.UtcNow.AddDays(7);
 
-            //http://stackoverflow.com/questions/18223868/how-to-encrypt-jwt-security-token
             var tokenHandler = new JwtSecurityTokenHandler();
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
@@ -61,7 +71,7 @@ namespace RipOffAPI.Controllers
 
             var token =
                 (JwtSecurityToken)
-                    tokenHandler.CreateJwtSecurityToken(issuer: "http://localhost:50191", audience: "http://localhost:50191",
+                    tokenHandler.CreateJwtSecurityToken(issuer: "http://localhost:57182", audience: "http://localhost:57182",
                     subject: claimsIdentity, notBefore: issuedAt, expires: expires, signingCredentials: signingCredentials);
             var tokenString = tokenHandler.WriteToken(token);
 
