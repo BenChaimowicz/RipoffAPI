@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace RipOffAPI
 {
@@ -13,6 +14,9 @@ namespace RipOffAPI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             config.MessageHandlers.Add(new Managers.TokenValidationHandler());
 

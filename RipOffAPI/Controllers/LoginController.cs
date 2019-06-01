@@ -19,6 +19,7 @@ namespace RipOffAPI.Controllers
             LoginRequest loginrequest = new LoginRequest { };
             loginrequest.Username = login.Username;
             loginrequest.Password = login.Password;
+            string fullname = "";
 
             IHttpActionResult response;
             HttpResponseMessage responseMsg = new HttpResponseMessage();
@@ -31,16 +32,21 @@ namespace RipOffAPI.Controllers
                     var user = entities.Users.FirstOrDefault(u => u.Email == loginrequest.Username);
                     if (user == null)
                     {
-                        loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
-                        response = ResponseMessage(loginResponse.responseMsg);
-                        return response;
+                        user = entities.Users.FirstOrDefault(u => u.User_Name == loginrequest.Username);
+                        if (user == null) {
+                            loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
+                            response = ResponseMessage(loginResponse.responseMsg);
+                            return response;
+                        }
                     }
+                    fullname = user.Full_Name;
+                    loginrequest.Role = user.Permissions;
                     isUsernamePasswordValid = loginrequest.Password == user.Password  ? true : false;
                 }
             }
             if (isUsernamePasswordValid)
             {
-                string token = createToken(loginrequest.Username);
+                string token = createToken(loginrequest.Username, loginrequest.Role, fullname);
                 return Ok<string>(token);
             }
             else
@@ -51,7 +57,7 @@ namespace RipOffAPI.Controllers
             }
         }
 
-        private string createToken(string username)
+        private string createToken(string username, string role, string fullname)
         {
             DateTime issuedAt = DateTime.UtcNow;
             DateTime expires = DateTime.UtcNow.AddDays(7);
@@ -60,7 +66,9 @@ namespace RipOffAPI.Controllers
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, username)
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Name, fullname)
             });
 
             const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
@@ -77,5 +85,7 @@ namespace RipOffAPI.Controllers
 
             return tokenString;
         }
+
+
     }
 }
