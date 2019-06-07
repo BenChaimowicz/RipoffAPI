@@ -46,7 +46,7 @@ namespace RipOffAPI.Controllers
             }
             if (isUsernamePasswordValid)
             {
-                string token = createToken(loginrequest.Username, loginrequest.Role, fullname);
+                string token = createToken(loginrequest.Username, fullname);
                 return Ok<string>(token);
             }
             else
@@ -57,7 +57,7 @@ namespace RipOffAPI.Controllers
             }
         }
 
-        private string createToken(string username, string role, string fullname)
+        private string createToken(string username, string fullname)
         {
             DateTime issuedAt = DateTime.UtcNow;
             DateTime expires = DateTime.UtcNow.AddDays(7);
@@ -67,7 +67,6 @@ namespace RipOffAPI.Controllers
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, role),
                 new Claim(ClaimTypes.Name, fullname)
             });
 
