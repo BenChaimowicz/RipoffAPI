@@ -64,12 +64,10 @@ namespace RipOffAPI.Managers
             }
             catch (Microsoft.IdentityModel.Tokens.SecurityTokenValidationException e)
             {
-                Console.WriteLine(e.Message);
                 statusCode = HttpStatusCode.Unauthorized;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
                 statusCode = HttpStatusCode.InternalServerError;
             }
             return Task<HttpResponseMessage>.Factory.StartNew(() => new HttpResponseMessage(statusCode) { });

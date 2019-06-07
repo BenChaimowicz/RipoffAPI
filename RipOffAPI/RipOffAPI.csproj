@@ -138,6 +138,7 @@
     <Compile Include="CarType.cs">
       <DependentUpon>RipoffDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\CarTypesController.cs" />

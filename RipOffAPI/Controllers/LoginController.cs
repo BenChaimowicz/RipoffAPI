@@ -20,6 +20,7 @@ namespace RipOffAPI.Controllers
             loginrequest.Username = login.Username;
             loginrequest.Password = login.Password;
             string fullname = "";
+            int userId = -1;
 
             IHttpActionResult response;
             HttpResponseMessage responseMsg = new HttpResponseMessage();
@@ -40,13 +41,14 @@ namespace RipOffAPI.Controllers
                         }
                     }
                     fullname = user.Full_Name;
+                    userId = user.uid;
                     loginrequest.Role = user.Permissions;
                     isUsernamePasswordValid = loginrequest.Password == user.Password  ? true : false;
                 }
             }
             if (isUsernamePasswordValid)
             {
-                string token = createToken(loginrequest.Username, fullname);
+                string token = createToken(loginrequest.Username, userId, fullname, loginrequest.Role);
                 return Ok<string>(token);
             }
             else
@@ -57,7 +59,7 @@ namespace RipOffAPI.Controllers
             }
         }
 
-        private string createToken(string username, string fullname)
+        private string createToken(string username, int userId, string fullname, string role)
         {
             DateTime issuedAt = DateTime.UtcNow;
             DateTime expires = DateTime.UtcNow.AddDays(7);
@@ -66,8 +68,10 @@ namespace RipOffAPI.Controllers
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Name, fullname)
+                new Claim("user_name", username),
+                new Claim("full_name", fullname),
+                new Claim(ClaimTypes.Role, role),
+                new Claim("user_id", userId.ToString())
             });
 
             const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
