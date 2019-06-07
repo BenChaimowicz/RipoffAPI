@@ -9,5 +9,6 @@ namespace RipOffAPI.Controllers
 {
     public class AuthController : ApiController
     {
+
     }
 }

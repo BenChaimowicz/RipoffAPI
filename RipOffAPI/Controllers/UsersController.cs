@@ -19,6 +19,7 @@ namespace RipOffAPI.Controllers
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
 
         // GET: api/Users
+
         public IHttpActionResult GetUsers()
         {
             var users = new List<UserModel>();
@@ -32,10 +33,11 @@ namespace RipOffAPI.Controllers
         }
 
         // GET: api/Users/5
-        [Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee, Registered")]
         [ResponseType(typeof(UserModel))]
         public IHttpActionResult GetUser(int id)
         {
+            var currUser = RequestContext.Principal.Identity;
             User user = db.Users.Find(id);
             if (user == null)
             {
@@ -48,6 +50,7 @@ namespace RipOffAPI.Controllers
         }
 
         // PUT: api/Users/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, User user)
         {
@@ -83,6 +86,7 @@ namespace RipOffAPI.Controllers
         }
 
         // POST: api/Users
+        [AllowAnonymous]
         [ResponseType(typeof(User))]
         public IHttpActionResult PostUser(User user)
         {
@@ -113,6 +117,7 @@ namespace RipOffAPI.Controllers
         }
 
         // DELETE: api/Users/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
         {
