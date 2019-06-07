@@ -13,7 +13,7 @@ using RipOffAPI.Models;
 
 namespace RipOffAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Employee")]
     public class UsersController : ApiController
     {
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
@@ -32,6 +32,7 @@ namespace RipOffAPI.Controllers
         }
 
         // GET: api/Users/5
+        [Authorize(Roles = "Admin, Employee")]
         [ResponseType(typeof(UserModel))]
         public IHttpActionResult GetUser(int id)
         {

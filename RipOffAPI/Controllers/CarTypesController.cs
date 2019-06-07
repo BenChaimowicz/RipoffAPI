@@ -19,6 +19,7 @@ namespace RipOffAPI.Controllers
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
 
         // GET: api/CarTypes
+        [AllowAnonymous]
         public IHttpActionResult GetCarTypes()
         {
             var carTypes = new List<CarTypeModel>();
@@ -31,6 +32,7 @@ namespace RipOffAPI.Controllers
         }
 
         // GET: api/CarTypes/5
+        [AllowAnonymous]
         [ResponseType(typeof(CarTypeModel))]
         public IHttpActionResult GetCarType(int id)
         {
@@ -48,6 +50,7 @@ namespace RipOffAPI.Controllers
         }
 
         // PUT: api/CarTypes/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCarType(int id, CarType carType)
         {
@@ -83,6 +86,7 @@ namespace RipOffAPI.Controllers
         }
 
         // POST: api/CarTypes
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(CarType))]
         public IHttpActionResult PostCarType(CarType carType)
         {
@@ -113,6 +117,7 @@ namespace RipOffAPI.Controllers
         }
 
         // DELETE: api/CarTypes/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(CarType))]
         public IHttpActionResult DeleteCarType(int id)
         {

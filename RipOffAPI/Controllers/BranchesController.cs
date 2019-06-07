@@ -46,6 +46,7 @@ namespace RipOffAPI.Controllers
         }
 
         // PUT: api/Branches/5
+        [Authorize(Roles = "Admin, Employee")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutBranch(int id, Branch branch)
         {
@@ -81,6 +82,7 @@ namespace RipOffAPI.Controllers
         }
 
         // POST: api/Branches
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult PostBranch(Branch branch)
         {
@@ -111,6 +113,7 @@ namespace RipOffAPI.Controllers
         }
 
         // DELETE: api/Branches/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Branch))]
         public IHttpActionResult DeleteBranch(int id)
         {
