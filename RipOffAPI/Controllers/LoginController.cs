@@ -17,6 +17,10 @@ namespace RipOffAPI.Controllers
         {
             var loginResponse = new LoginResponse { };
             LoginRequest loginrequest = new LoginRequest { };
+            if (login.Username == null || login.Password == null)
+            {
+                return Unauthorized();
+            }
             loginrequest.Username = login.Username;
             loginrequest.Password = login.Password;
             string fullname = "";

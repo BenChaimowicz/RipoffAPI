@@ -13,7 +13,7 @@ using RipOffAPI.Models;
 
 namespace RipOffAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Employee")]
     public class CarsController : ApiController
     {
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
