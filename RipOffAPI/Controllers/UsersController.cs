@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RipOffAPI;
@@ -37,7 +38,14 @@ namespace RipOffAPI.Controllers
         [ResponseType(typeof(UserModel))]
         public IHttpActionResult GetUser(int id)
         {
-            var currUser = RequestContext.Principal.Identity;
+            var identity = (ClaimsIdentity)User.Identity;
+            int iuid = Convert.ToInt32(identity.FindFirst("user_id").Value);
+            string irole = identity.FindFirst(ClaimTypes.Role).Value;
+
+            if (id != iuid && irole != "Admin")
+            {
+                return Unauthorized();
+            }
             User user = db.Users.Find(id);
             if (user == null)
             {

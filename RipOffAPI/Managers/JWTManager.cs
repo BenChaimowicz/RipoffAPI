@@ -59,7 +59,7 @@ namespace RipOffAPI.Managers
                 };
                 Thread.CurrentPrincipal = handler.ValidateToken(token, validationParameters, out securityToken);
                 HttpContext.Current.User = handler.ValidateToken(token, validationParameters, out securityToken);
-
+                
                 return base.SendAsync(request, cancellationToken);
             }
             catch (Microsoft.IdentityModel.Tokens.SecurityTokenValidationException e)

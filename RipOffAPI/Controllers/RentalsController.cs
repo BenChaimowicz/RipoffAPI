@@ -58,6 +58,7 @@ namespace RipOffAPI.Controllers
         }
 
         // PUT: api/Rentals/5
+        [Authorize(Roles = "Admin, Employee")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutRental(int id, Rental rental)
         {
@@ -93,6 +94,7 @@ namespace RipOffAPI.Controllers
         }
 
         // POST: api/Rentals
+        [Authorize(Roles = "Admin, Employee")]
         [ResponseType(typeof(Rental))]
         public IHttpActionResult PostRental(Rental rental)
         {
@@ -123,6 +125,7 @@ namespace RipOffAPI.Controllers
         }
 
         // DELETE: api/Rentals/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Rental))]
         public IHttpActionResult DeleteRental(int id)
         {
