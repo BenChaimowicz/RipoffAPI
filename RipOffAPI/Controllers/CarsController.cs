@@ -19,6 +19,7 @@ namespace RipOffAPI.Controllers
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
 
         // GET: api/Cars
+        [AllowAnonymous]
         public IHttpActionResult GetCars()
         {
             var cars = new List<CarModel>();
