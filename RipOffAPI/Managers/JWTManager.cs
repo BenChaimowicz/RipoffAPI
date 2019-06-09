@@ -62,11 +62,15 @@ namespace RipOffAPI.Managers
                 
                 return base.SendAsync(request, cancellationToken);
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Microsoft.IdentityModel.Tokens.SecurityTokenValidationException e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 statusCode = HttpStatusCode.Unauthorized;
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 statusCode = HttpStatusCode.InternalServerError;
             }
