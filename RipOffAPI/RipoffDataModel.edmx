@@ -22,7 +22,7 @@
           <Property Name="Index" Type="int" Nullable="false" />
           <Property Name="Car Type Index" Type="int" Nullable="false" />
           <Property Name="Mileage" Type="int" Nullable="false" />
-          <Property Name="Image" Type="nvarchar" MaxLength="100" />
+          <Property Name="Image" Type="varchar(max)" />
           <Property Name="Fit For Rental" Type="bit" Nullable="false" />
           <Property Name="Available" Type="bit" Nullable="false" />
           <Property Name="Plate Number" Type="nvarchar" MaxLength="7" Nullable="false" />
@@ -62,7 +62,7 @@
           <Property Name="Date Of Birth" Type="date" />
           <Property Name="Gender" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Image" Type="binary" MaxLength="6000" />
+          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="Permissions" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -159,7 +159,7 @@
           <Property Name="Index" Type="Int32" Nullable="false" />
           <Property Name="Car_Type_Index" Type="Int32" Nullable="false" />
           <Property Name="Mileage" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Fit_For_Rental" Type="Boolean" Nullable="false" />
           <Property Name="Available" Type="Boolean" Nullable="false" />
           <Property Name="Plate_Number" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
@@ -205,7 +205,7 @@
           <Property Name="Date_Of_Birth" Type="DateTime" Precision="0" />
           <Property Name="Gender" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="6000" FixedLength="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Permissions" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Rentals" Relationship="Self.FK_Rentals_Users" FromRole="Users" ToRole="Rentals" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />

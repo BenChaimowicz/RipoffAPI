@@ -19,6 +19,7 @@ namespace RipOffAPI.Controllers
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
 
         // GET: api/Branches
+        [AllowAnonymous]
         public IHttpActionResult GetBranches()
         {
             var branches = new List<BranchModel>();
@@ -31,6 +32,7 @@ namespace RipOffAPI.Controllers
         }
 
         // GET: api/Branches/5
+        [AllowAnonymous]
         [ResponseType(typeof(BranchModel))]
         public IHttpActionResult GetBranch(int id)
         {

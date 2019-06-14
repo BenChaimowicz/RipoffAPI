@@ -15,7 +15,7 @@ namespace RipOffAPI.Controllers
     public class FileUploadController : ApiController
     {
         [HttpPost]
-        public async Task<IHttpActionResult> UploadFile()
+        public async Task<IHttpActionResult> UploadUserPhoto()
         {
             var identity = (ClaimsIdentity)User.Identity;
             int iuid = Convert.ToInt32(identity.FindFirst("user_id").Value);
@@ -45,12 +45,20 @@ namespace RipOffAPI.Controllers
                     }
 
                     File.Move(localFileName, filePath);
+                    
+                    using (RipoffRentalsEntities db = new RipoffRentalsEntities())
+                    {
+                        var currUser = db.Users.First(u => u.uid == iuid);
+                        byte[] buffer = File.ReadAllBytes(filePath);
+                        currUser.Image = buffer;
+                    }
                 }
             }
             catch (Exception e)
             {
                 return InternalServerError(e);
             }
+
             return Ok("File Uploaded successfuly!");
         }
     }
