@@ -13,7 +13,7 @@ namespace RipOffAPI.Models
         public string UserName { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public string Permissions { get; set; }
         public string DateOfBirth { get; set; }
 
@@ -25,7 +25,7 @@ namespace RipOffAPI.Models
             string gender,
             string email,
             string permissions,
-            string image,
+            byte[] image,
             string dateofbirth)
         {
             uid = id;

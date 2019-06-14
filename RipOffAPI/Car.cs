@@ -23,7 +23,7 @@ namespace RipOffAPI
         public int Index { get; set; }
         public int Car_Type_Index { get; set; }
         public int Mileage { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public bool Fit_For_Rental { get; set; }
         public bool Available { get; set; }
         public string Plate_Number { get; set; }

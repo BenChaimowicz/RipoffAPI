@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RipOffAPI;
 using RipOffAPI.Models;
+using RipOffAPI.Managers;
 
 namespace RipOffAPI.Controllers
 {
@@ -25,7 +26,8 @@ namespace RipOffAPI.Controllers
             var cars = new List<CarModel>();
             foreach (var c in db.Cars.ToList())
             {
-                var car = new CarModel(c.Index, c.Car_Type_Index, c.Mileage, c.Image, c.Fit_For_Rental, c.Available, c.Plate_Number, c.Branch);
+                
+                var car = new CarModel(c.Index, c.Car_Type_Index, c.Mileage, ImageHelper.ConvertImageToString(c.Image) , c.Fit_For_Rental, c.Available, c.Plate_Number, c.Branch);
                 cars.Add(car);
             }
             return Ok(cars);
@@ -45,7 +47,7 @@ namespace RipOffAPI.Controllers
                 car.Index,
                 car.Car_Type_Index,
                 car.Mileage,
-                car.Image,
+                ImageHelper.ConvertImageToString(car.Image),
                 car.Fit_For_Rental,
                 car.Available,
                 car.Plate_Number,

@@ -149,6 +149,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\ImageHelper.cs" />
     <Compile Include="Managers\JWTManager.cs" />
     <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\BranchModel.cs" />

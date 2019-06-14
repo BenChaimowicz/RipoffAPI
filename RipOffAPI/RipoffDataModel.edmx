@@ -22,7 +22,7 @@
           <Property Name="Index" Type="int" Nullable="false" />
           <Property Name="Car Type Index" Type="int" Nullable="false" />
           <Property Name="Mileage" Type="int" Nullable="false" />
-          <Property Name="Image" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="Fit For Rental" Type="bit" Nullable="false" />
           <Property Name="Available" Type="bit" Nullable="false" />
           <Property Name="Plate Number" Type="nvarchar" MaxLength="7" Nullable="false" />
@@ -159,7 +159,7 @@
           <Property Name="Index" Type="Int32" Nullable="false" />
           <Property Name="Car_Type_Index" Type="Int32" Nullable="false" />
           <Property Name="Mileage" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Fit_For_Rental" Type="Boolean" Nullable="false" />
           <Property Name="Available" Type="Boolean" Nullable="false" />
           <Property Name="Plate_Number" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
