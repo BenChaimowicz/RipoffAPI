@@ -10,7 +10,7 @@ namespace RipOffAPI.Models
         public int Index { get; set; }
         public int CarTypeIndex { get; set; }
         public int Mileage { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         public bool FitForRental { get; set; }
         public bool Available { get; set; }
         public string PlateNumber { get; set; }
@@ -29,11 +29,17 @@ namespace RipOffAPI.Models
             Index = id;
             CarTypeIndex = cartype;
             Mileage = mileage;
-            Image = image;
+            Image = Convert.ToBase64String(image);
             FitForRental = fit;
             Available = available;
             PlateNumber = platenumber;
             Branch = branch;
         }
+
+        public CarModel()
+        {
+
+        }
+
     }
 }
