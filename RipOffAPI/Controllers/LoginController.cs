@@ -53,7 +53,9 @@ namespace RipOffAPI.Controllers
             if (isUsernamePasswordValid)
             {
                 string token = createToken(loginrequest.Username, userId, fullname, loginrequest.Role);
-                return Ok<string>(token);
+                loginResponse.Token = token;
+                loginResponse.FullName = fullname;
+                return Ok(loginResponse);
             }
             else
             {
@@ -92,7 +94,5 @@ namespace RipOffAPI.Controllers
 
             return tokenString;
         }
-
-
     }
 }
