@@ -14,7 +14,7 @@ using RipOffAPI.Models;
 
 namespace RipOffAPI.Controllers
 {
-    [Authorize(Roles = "Admin, Employee")]
+    [Authorize(Roles = "Admin, Employee, Registered")]
     public class UsersController : ApiController
     {
         private RipoffRentalsEntities db = new RipoffRentalsEntities();

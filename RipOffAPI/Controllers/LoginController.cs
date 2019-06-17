@@ -55,6 +55,7 @@ namespace RipOffAPI.Controllers
                 string token = createToken(loginrequest.Username, userId, fullname, loginrequest.Role);
                 loginResponse.Token = token;
                 loginResponse.FullName = fullname;
+                loginResponse.Id = userId;
                 return Ok(loginResponse);
             }
             else

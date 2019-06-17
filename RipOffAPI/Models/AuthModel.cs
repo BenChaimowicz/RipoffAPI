@@ -20,6 +20,7 @@ namespace RipOffAPI.Models
 
             public string Token { get; set; }
             public string FullName { get; set; }
+            public int Id { get; set; }
             public HttpResponseMessage responseMsg { get; set; }
 
             public LoginResponse()
