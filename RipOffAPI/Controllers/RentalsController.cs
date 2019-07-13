@@ -28,7 +28,7 @@ namespace RipOffAPI.Controllers
                     r.Index,
                     (DateTime)r.Start_Date,
                     (DateTime)r.End_Date,
-                    (DateTime)r.Return_Date,
+                    r.Return_Date,
                     r.User_Index,
                     r.Car_Index);
                 rentals.Add(rental);
@@ -94,13 +94,22 @@ namespace RipOffAPI.Controllers
         }
 
         // POST: api/Rentals
-        [Authorize(Roles = "Admin, Employee")]
+        [Authorize(Roles = "Admin, Employee, Registered")]
         [ResponseType(typeof(Rental))]
         public IHttpActionResult PostRental(Rental rental)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            int newId = db.Rentals.Max(r => r.Index);
+            if (!db.Rentals.Any(r => r.Index == newId + 1))
+            {
+            rental.Index = newId + 1;
+            } else
+            {
+                rental.Index = newId + 2;
             }
 
             db.Rentals.Add(rental);

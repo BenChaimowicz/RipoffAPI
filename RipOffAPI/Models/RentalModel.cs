@@ -10,7 +10,7 @@ namespace RipOffAPI.Models
         public int Index { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate{ get; set; }
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
         public int UserIndex { get; set; }
         public int CarIndex { get; set; }
 
@@ -18,7 +18,7 @@ namespace RipOffAPI.Models
             int id,
             DateTime start,
             DateTime end,
-            DateTime ret,
+            Nullable<DateTime> ret,
             int userindex,
             int carindex)
         {

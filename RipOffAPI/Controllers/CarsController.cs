@@ -14,7 +14,7 @@ using RipOffAPI.Managers;
 
 namespace RipOffAPI.Controllers
 {
-    [Authorize(Roles = "Admin, Employee")]
+    [Authorize(Roles = "Admin, Employee, Registered")]
     public class CarsController : ApiController
     {
         private RipoffRentalsEntities db = new RipoffRentalsEntities();
@@ -34,6 +34,7 @@ namespace RipOffAPI.Controllers
         }
 
         // GET: api/Cars/5
+        [Authorize(Roles = "Registered, Admin, Employee")]
         [ResponseType(typeof(CarModel))]
         public IHttpActionResult GetCar(int id)
         {

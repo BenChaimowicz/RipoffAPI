@@ -11,12 +11,12 @@ namespace RipOffAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            
             // Web API routes
-            config.MapHttpAttributeRoutes();
-
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
+            config.MapHttpAttributeRoutes();
+
 
             config.MessageHandlers.Add(new Managers.TokenValidationHandler());
 

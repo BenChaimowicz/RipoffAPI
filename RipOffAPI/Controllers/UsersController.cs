@@ -8,12 +8,14 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using RipOffAPI;
 using RipOffAPI.Models;
 
 namespace RipOffAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize(Roles = "Admin, Employee, Registered")]
     public class UsersController : ApiController
     {
